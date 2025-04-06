@@ -1,0 +1,5 @@
+# Convert all text files to LF on commit, but preserve CRLF on checkout (Windows-friendly)
+* text=auto
+
+# Force Java source files to use LF line endings in repo
+*.java text eol=lf
