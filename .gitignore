@@ -23,12 +23,6 @@
 hs_err_pid*
 replay_pid*
 
-# Ignore folders that are separate repos or not ready to commit
-Jukebox/
-PrintLots/
-PrintLots2/
-LineNumberer/
-
 # Ignore IntelliJ IDEA project configuration files
 .idea/
 Jukebox/
