@@ -2,20 +2,11 @@ package com.jakeledner.workout;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -47,8 +38,16 @@ public class App extends Application {
     addBtn.setOnAction(e -> {
       // 1) Build your form controls
       TextField nameField = new TextField();
-      TextField groupField = new TextField();
+      ComboBox<String> groupCombo = new ComboBox<>();
+      groupCombo.getItems().addAll(
+          "Chest", "Back", "Legs", "Arms", "Shoulders", "Core");
+      groupCombo.setValue("Chest");
       Slider prioritySlider = new Slider(1, 10, 5);
+      prioritySlider.setShowTickMarks(true);
+      prioritySlider.setShowTickLabels(true);
+      prioritySlider.setMajorTickUnit(1);
+      prioritySlider.setMinorTickCount(0);
+      prioritySlider.setSnapToTicks(true);
       DatePicker datePicker = new DatePicker(LocalDate.now());
 
       // 2) Lay them out
@@ -56,7 +55,7 @@ public class App extends Application {
       grid.setHgap(10);
       grid.setVgap(10);
       grid.addRow(0, new Label("Name:"), nameField);
-      grid.addRow(1, new Label("Group:"), groupField);
+      grid.addRow(1, new Label("Group:"), groupCombo);
       grid.addRow(2, new Label("Priority:"), prioritySlider);
       grid.addRow(3, new Label("Date:"), datePicker);
 
@@ -71,7 +70,7 @@ public class App extends Application {
         if (btn == ButtonType.OK) {
           return new Exercise(
               nameField.getText(),
-              groupField.getText(),
+              groupCombo.getValue(), // ← use getValue(), not getItems()
               (int) prioritySlider.getValue(),
               datePicker.getValue());
         }
